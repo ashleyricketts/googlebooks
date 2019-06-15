@@ -1,8 +1,9 @@
 const express = require("express");
 const path = require("path");
-const PORT = process.env.PORT || 8080;
 const app = express();
 const mongoose = require("mongoose");
+const routes = require("./routes")
+const PORT = process.env.PORT || 8080;
 
 
 // Define middleware here
@@ -13,8 +14,9 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
-var db = require("./models");
+app.use(routes);
 
+var db = require("./models");
 mongoose.connect("mongodb://localhost/googlebooksearch", { useNewUrlParser: true });
 
 // Define API routes here
